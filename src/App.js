@@ -21,10 +21,9 @@ function App() {
 
   function handleAddTodo(e) {
     const name = todoNameRef.current.value;
-    s;
     if (name === "") return;
     setTodos((prevTodos) => {
-      return [...prevTodos, { id: uuidv4(), name: name, component: false }];
+      return [...prevTodos, { id: uuidv4(), name: name, complete: false }];
     });
     todoNameRef.current.value = null;
   }
@@ -36,9 +35,9 @@ function App() {
     setTodos(newTodo);
   }
 
-  function handleClearTodos() {
+  function handleClearTodo() {
     const newTodos = [...todos];
-    const todoToDelete = newTodos.filter((todo) => todo.complete);
+    const todoToDelete = newTodos.filter((todo) => !todo.complete);
     setTodos(todoToDelete);
   }
   return (
@@ -46,7 +45,7 @@ function App() {
       <TodoList todos={todos} toggleTodo={toggleTodo} />
       <input ref={todoNameRef} type="text" />
       <button onClick={handleAddTodo}>Add</button>
-      <button onClick={handleClearTodos}>Clear complete</button>
+      <button onClick={handleClearTodo}>Clear complete</button>
       <div>{todos.filter((todo) => !todo.complete).length} left todo</div>
     </div>
   );
